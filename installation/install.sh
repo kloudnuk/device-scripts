@@ -27,14 +27,12 @@ devicename=$1
 orgname=$2
 username=$3
 password=$4
-hosturl=$5
-version=0.0.9
+version=0.0.10
 
 [[ -z $devicename ]] && devicename="$(read -rp 'enter a device name: ')"
 [[ -z $orgname ]] && orgname="$(read -r -p 'enter an organization name: ')"
 [[ -z $username ]] && username="$(read -r -p 'enter user name: ')"
 [[ -z $password ]] && password="$(read -r -p 'enter password: ' -s)"
-[[ -z $hosturl ]] && hosturl="$(read -r -p 'enter the server host address: ')"
 echo -e "\n"
 auth="$(echo -n $username':'$password | base64)"
 
@@ -53,7 +51,7 @@ uuidp2=$(blkid | grep /dev/mmcblk0 | awk '{print $2}' |
 nukid="$(echo ${uuidp1}${uuidp2})"
 
 curl -X POST --write-out '%{http_code}\n' \
-    --location "$hosturl/api/v1/devices/enroll?org=$orgname" \
+    --location "https://kloudnuk.com/api/v1/devices/enroll?org=$orgname" \
     --header 'Content-Type: application/json' \
     --header 'Authorization: Basic '"$auth" \
     --data "[{ \"controllerid\": \"$nukid\", \
@@ -68,7 +66,7 @@ curl -X POST --write-out '%{http_code}\n' \
 if [ $? -eq 0 ]; then
 
     curl -X POST --write-out '%{http_code}\n' \
-        --location "$hosturl/api/v1/devices/activate?softwarePackage=bacnet-client_$version.zip&deviceid=$nukid&org=$orgname" \
+        --location "https://kloudnuk.com/api/v1/devices/activate?softwarePackage=bacnet-client_$version.zip&deviceid=$nukid&org=$orgname" \
         --header 'Authorization: Basic '"$auth" \
         --output '/nuk/.packages/bacnet_client.zip'
 
