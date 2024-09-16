@@ -23,20 +23,21 @@ In order to run the script follow the steps below:
 2. Make sure the scripts are executable `sudo chmod +x install.sh`
 3. Make sure you are the owner `sudo chown $USER:$USER install.sh`
 4. Run it `install.sh device-a my-org my-username my-pass https://test.kloudnuk.com*`
+5. Whatever you do, DO NOT run as sudo.
 
 ## Service Setup Script (addservice.sh)
 
-The addservice.sh script uses your device's linux user name and user group to configure the kloudnuk local application as a service under the linux user account and group you specify as parameters when you run the script.
+The addservice.sh script must be run as sudo; it uses your device's linux user name and user group to configure the kloudnuk local application as a service under the linux user account and group you specify as parameters when you run the script.
 
 All the steps to follow are the same as the previous script, but for the number of parameters used when executing the script `addservice.sh my-linux-username my-linux-user-group`
 
 ## Remove Service Script (removeservice.sh)
 
 As the name implies this script simply removes the application from the service list and reloads the services daemon to make the changes effective.
-This script requires no parameters.
+This script requires no parameters, but it must also be run as sudo.
 
 ## Uninstall Script (uninstall.sh)
 
-Removes the python packages, the application directory, the debian packages installed to support the python app (if you uncomment the line), and the client certificate. No parameters are needed.
+Removes the python packages, the application directory, the debian packages installed to support the python app (if you uncomment the line), and the client certificate. No parameters are needed and it should be run with the same user priviledges as the user who run the corresponding install script.
 
 **vtsmolinski@outlook.com**
