@@ -17,7 +17,7 @@ orgname=$2
 username=$3
 password=$4
 
-version=0.0.11
+version=0.0.13
 interpreter=python3.10
 
 [[ -z $devicename ]] && devicename="$(read -rp 'enter a device name: ')"
