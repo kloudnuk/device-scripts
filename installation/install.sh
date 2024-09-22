@@ -9,7 +9,7 @@ function update_config() {
     local new_value="$4"
 
     # Use sed to find the section and update the key's value
-    sed -i "/^\[$section\]/,/^\[/ s/^\($key *= *\).*/\1\"$new_value\"/" "$file"
+    sed -i "/^\[$section\]/,/^\[/ s/^\($key *= *\).*/\1$new_value/" "$file"
 }
 
 devicename=$1
@@ -17,7 +17,7 @@ orgname=$2
 username=$3
 password=$4
 
-version=0.0.13
+version=0.0.15
 interpreter=python3.10
 
 [[ -z $devicename ]] && devicename="$(read -rp 'enter a device name: ')"
